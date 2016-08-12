@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Contains pusher.module
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * page_attachments hook
+ */
+
+function pusher_integration_page_attachments(&$page)
+{
+	// Include Pusher
+	$appKey = \Drupal::config('pusher.settings')->get('pusherAppKey');
+	$clusterName = \Drupal::config('pusher.settings')->get('clusterName');
+	$defaultChannels = \Drupal::config('pusher.settings')->get('defaultChannels');
+
+	$page['#attached']['library'][] = 'pusher_integration/pusherIntegration';
+
+	$page['#attached']['drupalSettings']['pusher']['pusherAppKey'] = $appKey;
+	$page['#attached']['drupalSettings']['pusher']['clusterName'] = $clusterName;
+
+	$tmp = preg_split('/\n/', $defaultChannels);
+	$defaultChannels = array_filter($tmp);
+
+	$page['#attached']['drupalSettings']['pusher']['defaultChannels'] = $defaultChannels;
+}
+

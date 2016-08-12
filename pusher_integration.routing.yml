@@ -1,0 +1,24 @@
+pusher_integration_configure:
+  path: 'admin/config/pusher_integration'
+  defaults:
+    _form: '\Drupal\pusher_integration\Form\ConfigureForm'
+    _title: 'Pusher Integration Configuration Page'
+  requirements:
+    _permission: 'administer site configuration'
+
+pusher_integration.pusherAuth:
+  path: '/pusher_integration/pusherAuth'
+  defaults:
+    _controller: '\Drupal\pusher_integration\Controller\BroadcastController::pusherAuth'
+    _title: 'Pusher User Authentication'
+  requirements:
+    _permission: 'access content'
+
+pusher_integration.broadcastMessage:
+  path: '/pusher_integration/broadcastMessage'
+  defaults:
+    _controller: '\Drupal\pusher_integration\Controller\BroadcastController::broadcastMessage'
+    _title: 'Broadcast a message'
+  requirements:
+    _permission: 'administer site configuration'
+
