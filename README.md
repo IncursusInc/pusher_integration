@@ -14,7 +14,7 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 
 1. Download and install the module (./modules/custom/push_integration)
 2. Configure the module (admin/config/pusher_integration)
-3. Install whatever other module needs it and go from there (e.g. (SiteCommander)[https://github.com/IncursusInc/sitecommander])
+3. Install whatever other module needs it and go from there (e.g. [SiteCommander](https://github.com/IncursusInc/sitecommander))
 
 # Usage Information for Developers
 
