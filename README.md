@@ -6,6 +6,10 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 * Drupal 8.x
 * PHP 5.5 or higher (untested under PHP 7)
 
+# Roadmap
+
+The biggest thing that will be coming soon will be support for presence-channels and private-channels.
+
 # Known Issues
 
 * None at this time
