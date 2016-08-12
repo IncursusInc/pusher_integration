@@ -14,7 +14,7 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 
 1. Download and install the module (./modules/custom/push_integration)
 2. Configure the module (admin/config/pusher_integration)
-3. Install whatever other module needs it and go from there (e.g. SiteCommander)
+3. Install whatever other module needs it and go from there (e.g. (SiteCommander)[https://github.com/IncursusInc/sitecommander])
 
 # Usage Information for Developers
 
@@ -25,14 +25,11 @@ This module will create a global Javascript object simply called "pusher". You m
 ```javascript
 var myChannel;
 
-//if (drupalSettings.sitecommander.pusherAppKey) {
-
 if (pusher)
 {
-  //pusher = new Pusher(drupalSettings.sitecommander.pusherAppKey, { cluster: 'ap1', authEndpoint: '/sitecommander/pusherAuth' });
-  myChannel = pusher.subscribe('channel-name-here');
+  myChannel = pusher.subscribe('my-channel-name-here');
 
-  pusher.bind('some-event-name-here', function(data) {
+  pusher.bind('my-event-name-here', function(data) {
 		// Access your event information via the "data" object once the event is received by the client/browser
   });
 
@@ -88,7 +85,7 @@ class MyController extends ControllerBase {
       'anotherVar' => 'Some other value'
     );
 
-    PusherController::broadcastMessage( $this->configFactory, 'my-channel', 'my-event-name', $data );
+    PusherController::broadcastMessage( $this->configFactory, 'my-channel-name-here', 'my-event-name-here', $data );
 
 		...
   }
