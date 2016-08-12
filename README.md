@@ -34,7 +34,8 @@ if (pusher)
   myChannel = pusher.subscribe('my-channel-name-here');
 
   pusher.bind('my-event-name-here', function(data) {
-		// Access your event information via the "data" object once the event is received by the client/browser
+	// Access your event information via the "data" object once the event is received by the client/browser
+	console.log( data );
   });
 
 }
