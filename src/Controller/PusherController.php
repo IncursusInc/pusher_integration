@@ -8,21 +8,27 @@
 namespace Drupal\pusher_integration\Controller;
 
 use Pusher;
+
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Ajax\AjaxResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
+
 use Drupal\pusher_integration\Ajax\ReadMessageCommand;
 use Drupal\pusher_integration\SiteCommanderUtils;
 
 class PusherController extends ControllerBase {
 
 	protected $configFactory;
+	protected $currentUser;
 
-	public function __construct( ConfigFactory $configFactory )
+	public function __construct( ConfigFactory $configFactory, AccountInterface $account )
 	{
 		$this->configFactory = $configFactory;
+		$this->currentUser = $account;
 	}
 
   /**
@@ -30,34 +36,44 @@ class PusherController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('current_user')
     );
   }
 
+	// User authentication for presence and private channels
 	public function pusherAuth()
 	{
-		$config = $this->configFactory->get('pusher_integration.settings');
-		$pusherAppId = $config->get('pusherAppId');
-		$pusherAppKey = $config->get('pusherAppKey');
-		$pusherAppSecret = $config->get('pusherAppSecret');
-		$clusterName = $config->get('clusterName');
+		// Only do this if the user is NOT anonymous! i.e. they are logged into Drupal
+		if (!$this->currentUser->isAnonymous()) {
 
-		$options = array('cluster' => $clusterName, 'encrypted' => true);
+			$config = $this->configFactory->get('pusher_integration.settings');
+			$pusherAppId = $config->get('pusherAppId');
+			$pusherAppKey = $config->get('pusherAppKey');
+			$pusherAppSecret = $config->get('pusherAppSecret');
+			$clusterName = $config->get('clusterName');
 
-		$pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
+			$options = array('cluster' => $clusterName, 'encrypted' => true);
 
-		$presenceData = array('user_id' => $_POST['socket_id']);
+			$pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
 
-		$pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $presenceData);
+			$presenceData = array('user_id' => $this->currentUser->id());
 
-		//echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $_POST['socket_id'], $presenceData);
-		echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $_POST['socket_id'], $presenceData);
+			$pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $presenceData);
+			echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $this->currentUser->id(), $presenceData);
 
-    // Create AJAX Response object.
-    $response = new AjaxResponse();
-		return $response;
+    	$response = new Response();
+			return $response;
+		}
+		else
+		{
+    	$response = new Response();
+			$response->setStatusCode(403);
+			return $response;
+		}
 	}
 
+	// Method to broadcast an event to all connected clients in a particular channel
 	public function broadcastMessage( $config, $channelName, $eventName, $data )
 	{
 		$pusherConfig = $config->get('pusher_integration.settings');

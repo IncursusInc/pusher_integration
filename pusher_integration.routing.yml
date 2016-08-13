@@ -9,7 +9,7 @@ pusher_integration_configure:
 pusher_integration.pusherAuth:
   path: '/pusher_integration/pusherAuth'
   defaults:
-    _controller: '\Drupal\pusher_integration\Controller\BroadcastController::pusherAuth'
+    _controller: '\Drupal\pusher_integration\Controller\PusherController::pusherAuth'
     _title: 'Pusher User Authentication'
   requirements:
     _permission: 'access content'
@@ -17,7 +17,7 @@ pusher_integration.pusherAuth:
 pusher_integration.broadcastMessage:
   path: '/pusher_integration/broadcastMessage'
   defaults:
-    _controller: '\Drupal\pusher_integration\Controller\BroadcastController::broadcastMessage'
+    _controller: '\Drupal\pusher_integration\Controller\PusherController::broadcastMessage'
     _title: 'Broadcast a message'
   requirements:
     _permission: 'administer site configuration'

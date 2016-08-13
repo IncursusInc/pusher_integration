@@ -83,6 +83,13 @@ class ConfigureForm extends ConfigFormBase {
     			'#description' => t('List of channel names to autojoin when connecting. One channel name per line.')
 				);
 
+				$form['pusher']['createPresenceChannel'] = array(
+    			'#type' => 'checkbox',
+    			'#title' => t('Automatically create a presence channel for authenticated users'),
+    			'#required' => FALSE,
+					'#default_value' => $config->get('createPresenceChannel'),
+					'#description' => t('If a module that requires pusher_integration (this module) requires a presence channel for authenticated users, check this box!')
+				);
 		return parent::buildForm($form, $form_state);
   }
 
@@ -105,6 +112,7 @@ class ConfigureForm extends ConfigFormBase {
 					 ->set('pusherAppSecret', $form_state->getValue('pusherAppSecret'))
 					 ->set('clusterName', $form_state->getValue('clusterName'))
 					 ->set('defaultChannels', $form_state->getValue('defaultChannels'))
+					 ->set('createPresenceChannel', $form_state->getValue('createPresenceChannel'))
 					 ->save();
 
 
