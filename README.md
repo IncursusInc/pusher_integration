@@ -32,7 +32,20 @@ On the server side, in your app or module, you can simply broadcast commands as 
     'anotherVar' => 'Some other value'
   );
 
+  // Broadcast an event to a single channel
   $this->pusher->broadcastMessage( $this->configFactory, 'my-channel-name-here', 'my-event-name-here', $data );
+  ...
+  // Broadcast an event to an array of channels
+  $this->pusher->broadcastMessage( $this->configFactory, array('my-channel-name-here', 'channel2'), 'my-event-name-here', $data );
+  ...
+  // Get info on a specific channel
+  $this->pusher->getChannelInfo( 'my-channel-name-here' );
+  ...
+  // Get list of channels
+  $this->pusher->getChannelList();
+  ...
+  // Send any generic Pusher.com REST command
+  $this->pusher->get('/channels');
 ```
 
 
