@@ -90,25 +90,39 @@ class PusherController extends ControllerBase {
 	// Method to broadcast an event to all connected clients in a particular channel (or an array of channels)
 	public function broadcastMessage( $config, $channelNames, $eventName, $data )
 	{
-		$this->pusher->trigger( $channelNames, $eventName, $data );
+		if (!$this->pusher->trigger( $channelNames, $eventName, $data )) {
+			\Drupal::logger('pusher_integration')->error('Triggered event failed. Data: ' . $channelNames . ' : ' . $eventName);
+		}
 	}
 
 	// Get information about a specific channel (by name)
 	public function getChannelInfo( $channelName, $options='' )
 	{
-		return $this->pusher->get_channel_info($channelName, $options);
+		$response = $this->pusher->get_channel_info($channelName, $options);
+		if(!$response)
+			\Drupal::logger('pusher_integration')->error('getChannelInfo failed. Data: ' . $channelName . ' : ' . $response);
+		else
+			return $response;
 	}
 
 	// Get a list of channels
 	public function getChannelList()
 	{
-		return $this->pusher->get_channels();
+		$response = $this->pusher->get_channels();
+		if(!$response)
+			\Drupal::logger('pusher_integration')->error('getChannelList failed.');
+		else
+			return $response;
 	}
 
 	// Send generic REST request to Pusher
 	public function get( $path, $params = array() )
 	{
-		return $this->pusher->get( $path, $params );
+		$response = $this->pusher->get( $path, $params );
+		if(!$response)
+			\Drupal::logger('pusher_integration')->error('get() failed.');
+		else
+			return $response;
 	}
 
 }
