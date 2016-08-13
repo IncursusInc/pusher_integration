@@ -99,6 +99,14 @@ class ConfigureForm extends ConfigFormBase {
     			'#description' => t('The name of your presence channel (must be prefixed with "presence-" ... e.g. presence-chat, presence-general, presence-channel, etc.)')
 				);
 
+				$form['pusher']['debugLogging'] = array(
+    			'#type' => 'checkbox',
+    			'#title' => t('Enable debug logging to the page'),
+    			'#required' => FALSE,
+					'#default_value' => $config->get('debugLogging'),
+					'#description' => t('It goes without saying that this should not be enabled in production environments! But if you need a quick and dirty debug log to watchdog, enable this.')
+				);
+
 		return parent::buildForm($form, $form_state);
   }
 
@@ -123,6 +131,7 @@ class ConfigureForm extends ConfigFormBase {
 					 ->set('defaultChannels', $form_state->getValue('defaultChannels'))
 					 ->set('createPresenceChannel', $form_state->getValue('createPresenceChannel'))
 					 ->set('presenceChannelName', $form_state->getValue('presenceChannelName'))
+					 ->set('debugLogging', $form_state->getValue('debugLogging'))
 					 ->save();
 
 

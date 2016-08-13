@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 use Drupal\pusher_integration\SiteCommanderUtils;
+use Drupal\pusher_integration\Controller\PusherDebugLogController;
 
 class PusherController extends ControllerBase {
 
@@ -34,11 +35,17 @@ class PusherController extends ControllerBase {
 		$pusherAppId = $pusherConfig->get('pusherAppId');
 		$pusherAppKey = $pusherConfig->get('pusherAppKey');
 		$pusherAppSecret = $pusherConfig->get('pusherAppSecret');
+		$debugLogging = $pusherConfig->get('debugLogging');
 		$clusterName = $pusherConfig->get('clusterName');
 		$options = array('cluster' => $clusterName, 'encrypted' => true);
 
 		// Create connection to Pusher
 		$this->pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
+
+		if($debugLogging) {
+			$this->pusher->set_logger( new PusherDebugLogController() );
+		}
+
 	}
 
   /**
@@ -75,7 +82,7 @@ class PusherController extends ControllerBase {
 				'user_name' => $u->get('name')->value
 			);
 
-			$this->pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $presenceData);
+			//$this->pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $presenceData);
 			echo $this->pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $this->currentUser->id(), $presenceData);
 
     	$response = new Response();
@@ -89,15 +96,28 @@ class PusherController extends ControllerBase {
 		}
 	}
 
-	// Method to broadcast an event to all connected clients in a particular channel
-	public function broadcastMessage( $config, $channelName, $eventName, $data )
+	// Method to broadcast an event to all connected clients in a particular channel (or an array of channels)
+	public function broadcastMessage( $config, $channelNames, $eventName, $data )
 	{
-		$this->pusher->trigger( $channelName, $eventName, $data );
+		$this->pusher->trigger( $channelNames, $eventName, $data );
 	}
 
+	// Get information about a specific channel (by name)
 	public function getChannelInfo( $channelName, $options='' )
 	{
 		return $this->pusher->get_channel_info($channelName, $options);
+	}
+
+	// Get a list of channels
+	public function getChannelList( $filter )
+	{
+		return $this->pusher->get_channels( $filter );
+	}
+
+	// Send generic REST request to Pusher
+	public function get( $path, $params = array() )
+	{
+		return $this->pusher->get( $path, $params );
 	}
 
 }

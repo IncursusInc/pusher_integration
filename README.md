@@ -6,6 +6,7 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 * Drupal 8.x
 * PHP 5.5 or higher (untested under PHP 7)
 * An account at Pusher.com (at least a free sandbox account for smaller sites)
+* Composer Manager module installed
 
 # Known Issues
 
@@ -14,8 +15,9 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 # Installation Instructions
 
 1. Download and install the module (./modules/custom/push_integration)
-2. Configure the module (admin/config/pusher_integration)
-3. Install whatever other module needs it and go from there (e.g. [SiteCommander](https://github.com/IncursusInc/sitecommander))
+2. Run an update with Drush to pull in dependencies: "drush up" (Be sure to have the Composer Manager module installed!)
+3. Configure the module (admin/config/pusher_integration)
+4. Install whatever other module needs it and go from there (e.g. [SiteCommander](https://github.com/IncursusInc/sitecommander))
 
 # Usage Information for Developers
 
