@@ -18,12 +18,16 @@ function pusher_integration_page_attachments(&$page)
 	$clusterName = \Drupal::config('pusher_integration.settings')->get('clusterName');
 	$defaultChannels = \Drupal::config('pusher_integration.settings')->get('defaultChannels');
 	$createPresenceChannel = \Drupal::config('pusher_integration.settings')->get('createPresenceChannel');
+	$presenceChannelName = \Drupal::config('pusher_integration.settings')->get('presenceChannelName');
+	$isUserAnonymous = \Drupal::currentUser()->isAnonymous();
 
 	$page['#attached']['library'][] = 'pusher_integration/pusherIntegration';
 
 	$page['#attached']['drupalSettings']['pusher']['pusherAppKey'] = $appKey;
 	$page['#attached']['drupalSettings']['pusher']['clusterName'] = $clusterName;
 	$page['#attached']['drupalSettings']['pusher']['createPresenceChannel'] = $createPresenceChannel;
+	$page['#attached']['drupalSettings']['pusher']['presenceChannelName'] = $presenceChannelName;
+	$page['#attached']['drupalSettings']['pusher']['isUserAnonymous'] = $isUserAnonymous;
 
 	$tmp = preg_split('/\n/', $defaultChannels);
 	$defaultChannels = array_filter($tmp);

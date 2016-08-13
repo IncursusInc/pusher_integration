@@ -57,7 +57,13 @@ class PusherController extends ControllerBase {
 
 			$pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
 
-			$presenceData = array('user_id' => $this->currentUser->id());
+			// Load the current user.
+			$u = \Drupal\user\Entity\User::load($this->currentUser->id());
+
+			$presenceData = array(
+				'user_id' => $this->currentUser->id(),
+				'user_name' => $u->get('name')->value
+			);
 
 			$pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $presenceData);
 			echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $this->currentUser->id(), $presenceData);

@@ -18,8 +18,10 @@ var presenceChannel;
 		});
 
 		// Presence Channel option, if configured
-		if(drupalSettings.pusher.createPresenceChannel)
-			presenceChannel = pusher.subscribe('presence-channel');
+		// TODO - only do this if we have an auth'd user in Drupal, otherwise it throws a (harmless) Javascript error
+		if(!drupalSettings.pusher.isUserAnonymous && drupalSettings.pusher.createPresenceChannel && drupalSettings.pusher.presenceChannelName)
+			presenceChannel = pusher.subscribe(drupalSettings.pusher.presenceChannelName);
+
 	}
 
 })(jQuery, Drupal);

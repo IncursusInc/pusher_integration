@@ -90,6 +90,15 @@ class ConfigureForm extends ConfigFormBase {
 					'#default_value' => $config->get('createPresenceChannel'),
 					'#description' => t('If a module that requires pusher_integration (this module) requires a presence channel for authenticated users, check this box!')
 				);
+
+				$form['pusher']['presenceChannelName'] = array(
+    			'#type' => 'textfield',
+    			'#title' => t('Name of Presence Channel'),
+    			'#required' => FALSE,
+					'#default_value' => $config->get('presenceChannelName') ? $config->get('presenceChannelName') : '',
+    			'#description' => t('The name of your presence channel (must be prefixed with "presence-" ... e.g. presence-chat, presence-general, presence-channel, etc.)')
+				);
+
 		return parent::buildForm($form, $form_state);
   }
 
@@ -113,6 +122,7 @@ class ConfigureForm extends ConfigFormBase {
 					 ->set('clusterName', $form_state->getValue('clusterName'))
 					 ->set('defaultChannels', $form_state->getValue('defaultChannels'))
 					 ->set('createPresenceChannel', $form_state->getValue('createPresenceChannel'))
+					 ->set('presenceChannelName', $form_state->getValue('presenceChannelName'))
 					 ->save();
 
 
