@@ -42,6 +42,7 @@ class PusherController extends ControllerBase {
 		// Create connection to Pusher
 		$this->pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
 
+		// Enable debug logging if configured in the admin panel
 		if($debugLogging) {
 			$this->pusher->set_logger( new PusherDebugLogController() );
 		}
@@ -64,16 +65,6 @@ class PusherController extends ControllerBase {
 		// Only do this if the user is NOT anonymous! i.e. they are logged into Drupal
 		if (!$this->currentUser->isAnonymous()) {
 
-			//$config = $this->configFactory->get('pusher_integration.settings');
-			//$pusherAppId = $config->get('pusherAppId');
-			//$pusherAppKey = $config->get('pusherAppKey');
-			//$pusherAppSecret = $config->get('pusherAppSecret');
-			//$clusterName = $config->get('clusterName');
-
-			//$options = array('cluster' => $clusterName, 'encrypted' => true);
-
-			//$pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
-
 			// Load the current user.
 			$u = \Drupal\user\Entity\User::load($this->currentUser->id());
 
@@ -82,7 +73,7 @@ class PusherController extends ControllerBase {
 				'user_name' => $u->get('name')->value
 			);
 
-			//$this->pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $presenceData);
+			// Authenticate to the presence channel
 			echo $this->pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $this->currentUser->id(), $presenceData);
 
     	$response = new Response();
