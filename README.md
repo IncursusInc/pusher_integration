@@ -64,7 +64,7 @@ use Drupal\pusher_integration\Controller\PusherController;
 
 class MyController extends ControllerBase {
 
-	protected configFactory;
+  protected configFactory;
 
   public function __construct( ConfigFactory $configFactory )
   {
