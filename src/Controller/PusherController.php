@@ -100,9 +100,9 @@ class PusherController extends ControllerBase {
 	}
 
 	// Get a list of channels
-	public function getChannelList( $filter )
+	public function getChannelList()
 	{
-		return $this->pusher->get_channels( $filter );
+		return $this->pusher->get_channels();
 	}
 
 	// Send generic REST request to Pusher
