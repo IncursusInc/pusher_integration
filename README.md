@@ -5,6 +5,7 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 
 * Drupal 8.x
 * PHP 5.5 or higher (untested under PHP 7)
+* An account at Pusher.com (at least a free sandbox account for smaller sites)
 
 # Roadmap
 
@@ -24,7 +25,7 @@ The biggest thing that will be coming soon will be support for presence-channels
 
 ## Client-side Javascript
 
-This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you:
+This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you on page loads:
 
 ```javascript
 var myChannel;
