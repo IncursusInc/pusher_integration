@@ -24,7 +24,21 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 On the server side, in your app or module, you can simply broadcast commands as follows:
 
 ```php
+  use Drupal\pusher_integration\Controller\PusherController;
+  ...
+  $this->pusher = new PusherController( $configFactory, $currentUser );
+  $data = array(
+    'someVar' => 'Some value',
+    'anotherVar' => 'Some other value'
+  );
 
+  $this->pusher->broadcastMessage( $this->configFactory, 'my-channel-name-here', 'my-event-name-here', $data );
+```
+
+
+Here is a more pseudo-complete example, with dependency injection:
+
+```php
 <?php
 
 /**
@@ -36,16 +50,22 @@ namespace Drupal\my_module\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Session\AccountInterface;
 
 use Drupal\pusher_integration\Controller\PusherController;
 
 class MyController extends ControllerBase {
 
-  protected configFactory;
+  protected $configFactory;
+  protected $currentUser;
+  protected $pusher;
 
-  public function __construct( ConfigFactory $configFactory )
+  public function __construct( ConfigFactory $configFactory, AccountInterface $account )
   {
     $this->configFactory = $configFactory;
+    $this->currentUser = $account;
+
+    $this->pusher = new PusherController( $configFactory, $currentUser );
   }
 
   /**
@@ -53,7 +73,8 @@ class MyController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('current_user'),
     );
   }
 
@@ -68,7 +89,7 @@ class MyController extends ControllerBase {
       'anotherVar' => 'Some other value'
     );
 
-    PusherController::broadcastMessage( $this->configFactory, 'my-channel-name-here', 'my-event-name-here', $data );
+    $this->pusher->broadcastMessage( $this->configFactory, 'my-channel-name-here', 'my-event-name-here', $data );
 
 		...
   }
