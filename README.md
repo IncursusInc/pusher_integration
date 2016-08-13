@@ -23,25 +23,6 @@ The biggest thing that will be coming soon will be support for presence-channels
 
 # Usage Information for Developers
 
-## Client-side Javascript
-
-This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you on page loads:
-
-```javascript
-var myChannel;
-
-if (pusher)
-{
-  myChannel = pusher.subscribe('my-channel-name-here');
-
-  pusher.bind('my-event-name-here', function(data) {
-	// Access your event information via the "data" object once the event is received by the client/browser
-	console.log( data );
-  });
-
-}
-```
-
 ## Server-Side PHP
 
 On the server side, in your app or module, you can simply broadcast commands as follows:
@@ -97,5 +78,24 @@ class MyController extends ControllerBase {
   }
 
 	...
+}
+```
+
+## Client-side Javascript
+
+This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you on page loads:
+
+```javascript
+var myChannel;
+
+if (pusher)
+{
+  myChannel = pusher.subscribe('my-channel-name-here');
+
+  pusher.bind('my-event-name-here', function(data) {
+	// Access your event information via the "data" object once the event is received by the client/browser
+	console.log( data );
+  });
+
 }
 ```
