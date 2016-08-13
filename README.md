@@ -92,6 +92,7 @@ if (pusher)
 {
   myChannel = pusher.subscribe('my-channel-name-here');
 
+  // Bind to the "my-event-name-here" event, so we can listen for it to come across the wire!
   pusher.bind('my-event-name-here', function(data) {
 	// Access your event information via the "data" object once the event is received by the client/browser
 	console.log( data );
