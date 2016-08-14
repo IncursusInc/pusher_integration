@@ -67,8 +67,15 @@ class ConfigureForm extends ConfigFormBase {
     			'#description' => t('The Pusher App Secret you created at Pusher.com.')
 				);
 
+				$clusters = array(
+					'mt1' => 'United States (us-east-1)',
+					'eu1' => 'Europe (eu-west-1)',
+					'ap1' => 'Asia (asia-southeast-1)'
+				);
+
 				$form['pusher']['clusterName'] = array(
-    			'#type' => 'textfield',
+    			'#type' => 'select',
+					'#options' => $clusters,
     			'#title' => t('Pusher.com Cluster Name'),
     			'#required' => FALSE,
 					'#default_value' => $config->get('clusterName') ? $config->get('clusterName') : '',
@@ -81,6 +88,14 @@ class ConfigureForm extends ConfigFormBase {
     			'#required' => FALSE,
 					'#default_value' => $config->get('defaultChannels') ? $config->get('defaultChannels') : '',
     			'#description' => t('List of channel names to autojoin when connecting. One channel name per line.')
+				);
+
+				$form['pusher']['channelPaths'] = array(
+    			'#type' => 'textarea',
+    			'#title' => t('Channel Routes'),
+    			'#required' => FALSE,
+					'#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
+    			'#description' => t('Matches channels to specific routes (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line.')
 				);
 
 				$form['pusher']['createPresenceChannel'] = array(
@@ -129,6 +144,7 @@ class ConfigureForm extends ConfigFormBase {
 					 ->set('pusherAppSecret', $form_state->getValue('pusherAppSecret'))
 					 ->set('clusterName', $form_state->getValue('clusterName'))
 					 ->set('defaultChannels', $form_state->getValue('defaultChannels'))
+					 ->set('channelPaths', $form_state->getValue('channelPaths'))
 					 ->set('createPresenceChannel', $form_state->getValue('createPresenceChannel'))
 					 ->set('presenceChannelName', $form_state->getValue('presenceChannelName'))
 					 ->set('debugLogging', $form_state->getValue('debugLogging'))
