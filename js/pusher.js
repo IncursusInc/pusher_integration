@@ -9,8 +9,6 @@ var presenceChannel;
 	// TODO - check to make sure we have ALL the fields needed to connect, not just the key! lol
 	if (drupalSettings.pusher.pusherAppKey) {
 
-console.log(drupalSettings.pusher);
-
 		// Create pusher connection
 		pusher = new Pusher(drupalSettings.pusher.pusherAppKey, { cluster: drupalSettings.pusher.clusterName, authEndpoint: '/pusher_integration/pusherAuth' });
 
