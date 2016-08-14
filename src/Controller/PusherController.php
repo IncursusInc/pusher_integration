@@ -74,7 +74,10 @@ class PusherController extends ControllerBase {
 			);
 
 			// Authenticate to the presence channel
-			echo $this->pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $this->currentUser->id(), $presenceData);
+			if(preg_match('/^presence-/', $_POST['channel_name']))
+				echo $this->pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $this->currentUser->id(), $presenceData);
+			else
+				echo $this->pusher->socket_auth($_POST['channel_name'], $_POST['socket_id']);
 
     	$response = new Response();
 			return $response;

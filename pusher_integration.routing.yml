@@ -10,7 +10,7 @@ pusher_integration.pusherAuth:
   path: '/pusher_integration/pusherAuth'
   defaults:
     _controller: '\Drupal\pusher_integration\Controller\PusherController::pusherAuth'
-    _title: 'Pusher User Authentication'
+    _title: 'Pusher User Authentication for Presence and Private Channels'
   requirements:
     _permission: 'access content'
 
