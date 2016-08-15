@@ -127,7 +127,7 @@ This module will create a global Javascript object simply called "pusher". You m
   If you've configured the option to automatically create a private channel, this will be set to the channel object.
 
 *presenceChannel*
-  If you've configured the option to automatically create a presence channel, this will be set to the channel handle.
+  If you've configured the option to automatically create a presence channel, this will be set to the channel object.
   
 ```javascript
 ...

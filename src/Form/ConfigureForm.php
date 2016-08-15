@@ -95,11 +95,11 @@ class ConfigureForm extends ConfigFormBase
 
         $form['pusher']['channelPaths'] = array(
           '#type' => 'textarea',
-          '#title' => t('Channel Routes'),
+          '#title' => t('Channel/Page Mapping'),
           '#required' => false,
           '#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
-          '#description' => t('Matches channels to specific routes (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line.'),
-          '#placeholder' => t("e.g.\ntest-channel|/about/us")
+          '#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported.'),
+          '#placeholder' => t("e.g.\ntest-channel|/about/us\ntest-channel2|/some/path/*\nspecialChannel|partialPathsWorkToo")
         );
 
         $form['pusher']['createPrivateChannel'] = array(
