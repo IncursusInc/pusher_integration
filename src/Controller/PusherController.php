@@ -42,6 +42,9 @@ class PusherController extends ControllerBase {
 		// Create connection to Pusher
 		$this->pusher = new Pusher( $pusherAppKey, $pusherAppSecret, $pusherAppId, $options );
 
+		if(!$this->pusher)
+			\Drupal::logger('pusher_integration')->debug('Unable to connect to Pusher.com');
+
 		// Enable debug logging if configured in the admin panel
 		if($debugLogging) {
 			$this->pusher->set_logger( new PusherDebugLogController() );

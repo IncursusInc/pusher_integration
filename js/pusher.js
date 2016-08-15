@@ -1,6 +1,7 @@
 var pusher;
 var pusherChannels = [];
 var presenceChannel;
+var privateChannel;
 
 (function($, Drupal) {
 
@@ -23,10 +24,13 @@ var presenceChannel;
 		});
 
 		// Presence Channel option, if configured
-		// TODO - only do this if we have an auth'd user in Drupal, otherwise it throws a (harmless) Javascript error
 		if(!drupalSettings.pusher.isUserAnonymous && drupalSettings.pusher.createPresenceChannel && drupalSettings.pusher.presenceChannelName)
 			presenceChannel = pusher.subscribe(drupalSettings.pusher.presenceChannelName);
 
+		// Private Channel option, if configured
+		console.log(drupalSettings.pusher);
+		if(!drupalSettings.pusher.isUserAnonymous && drupalSettings.pusher.createPrivateChannel && drupalSettings.pusher.privateChannelName)
+			privateChannel = pusher.subscribe(drupalSettings.pusher.privateChannelName);
 	}
 
 })(jQuery, Drupal);

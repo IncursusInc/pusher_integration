@@ -99,6 +99,14 @@ class ConfigureForm extends ConfigFormBase {
     			'#placeholder' => t("e.g.\ntest-channel|/about/us")
 				);
 
+				$form['pusher']['createPrivateChannel'] = array(
+    			'#type' => 'checkbox',
+    			'#title' => t('Automatically create a private channel for authenticated users'),
+    			'#required' => FALSE,
+					'#default_value' => $config->get('createPrivateChannel'),
+					'#description' => t('If a module that requires pusher_integration (this module) requires a private channel for authenticated users, check this box! Generally, there is no need.')
+				);
+
 				$form['pusher']['createPresenceChannel'] = array(
     			'#type' => 'checkbox',
     			'#title' => t('Automatically create a presence channel for authenticated users'),
@@ -146,6 +154,7 @@ class ConfigureForm extends ConfigFormBase {
 					 ->set('clusterName', $form_state->getValue('clusterName'))
 					 ->set('defaultChannels', $form_state->getValue('defaultChannels'))
 					 ->set('channelPaths', $form_state->getValue('channelPaths'))
+					 ->set('createPrivateChannel', $form_state->getValue('createPrivateChannel'))
 					 ->set('createPresenceChannel', $form_state->getValue('createPresenceChannel'))
 					 ->set('presenceChannelName', $form_state->getValue('presenceChannelName'))
 					 ->set('debugLogging', $form_state->getValue('debugLogging'))
