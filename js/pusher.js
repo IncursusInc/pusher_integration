@@ -23,12 +23,12 @@ var privateChannel;
                 s.matchedChannels, function(key, channelName) {
                     if(channelName.includes('presence-')) {
                         presenceChannel = pusher.subscribe(channelName);
-										}
+                    }
                     else
-                    if(channelName.includes('private-'))
-                        privateChannel = pusher.subscribe(s.privateChannelName);
-                    else
-                        pusherChannels[ channelName ] = pusher.subscribe(channelName);
+                    if(channelName.includes('private-')) {
+                        privateChannel = pusher.subscribe(s.privateChannelName); }
+                    else {
+                        pusherChannels[ channelName ] = pusher.subscribe(channelName); }
                 }
             );
 
