@@ -40,10 +40,10 @@ class ConfigureForm extends ConfigFormBase
 
         $config = $this->config('pusher_integration.settings');
 
-        // General settings
+        // Pusher.com Connection Settings
         $form['pusher'] = array(
           '#type' => 'fieldset',
-          '#title' => t('Pusher Settings'),
+          '#title' => t('Pusher.com Connection Settings'),
         );
 
         $form['pusher']['pusherAppId'] = array(
@@ -85,48 +85,28 @@ class ConfigureForm extends ConfigFormBase
           '#description' => t('The Pusher.com cluster to connect with.')
         );
 
-        $form['pusher']['defaultChannels'] = array(
-          '#type' => 'textarea',
-          '#title' => t('Default Channels'),
-          '#required' => false,
-          '#default_value' => $config->get('defaultChannels') ? $config->get('defaultChannels') : '',
-          '#description' => t('List of channel names to autojoin when connecting. One channel name per line.')
+        // Channel Configuration
+        $form['channelConfig'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('Channel Configuration'),
         );
 
-        $form['pusher']['channelPaths'] = array(
+        $form['channelConfig']['channelPaths'] = array(
           '#type' => 'textarea',
           '#title' => t('Channel/Page Mapping'),
           '#required' => false,
           '#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
-          '#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported.'),
-          '#placeholder' => t("e.g.\ntest-channel|/about/us\ntest-channel2|/some/path/*\nspecialChannel|partialPathsWorkToo")
+          '#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported. %TOKEN% can be used to create a unique hash for (for creating private channels).'),
+          '#placeholder' => t("e.g.\nglobal-channel|.*\ntest-channel|/some/path/*\nspecialChannel|partialPathsWorkToo\nprivate-%TOKEN%|/some/path/.*")
         );
 
-        $form['pusher']['createPrivateChannel'] = array(
-          '#type' => 'checkbox',
-          '#title' => t('Automatically create a private channel for authenticated users'),
-          '#required' => false,
-          '#default_value' => $config->get('createPrivateChannel'),
-          '#description' => t('If a module that requires pusher_integration (this module) requires a private channel for authenticated users, check this box! Generally, there is no need.')
+        // Channel Configuration
+        $form['misc'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('Miscellaneous Settings'),
         );
 
-        $form['pusher']['createPresenceChannel'] = array(
-          '#type' => 'checkbox',
-          '#title' => t('Automatically create a presence channel for authenticated users'),
-          '#required' => false,
-          '#default_value' => $config->get('createPresenceChannel'),
-          '#description' => t('If a module that requires pusher_integration (this module) requires a presence channel for authenticated users, check this box!')
-        );
-
-        $form['pusher']['presenceChannelName'] = array(
-          '#type' => 'textfield',
-          '#title' => t('Name of Presence Channel'),
-          '#required' => false,
-          '#default_value' => $config->get('presenceChannelName') ? $config->get('presenceChannelName') : '',
-          '#description' => t('The name of your presence channel (must be prefixed with "presence-" ... e.g. presence-chat, presence-general, presence-channel, etc.)')
-        );
-
-        $form['pusher']['debugLogging'] = array(
+        $form['misc']['debugLogging'] = array(
           '#type' => 'checkbox',
           '#title' => t('Enable debug logging to Drupal Watchdog'),
           '#required' => false,

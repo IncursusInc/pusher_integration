@@ -15,27 +15,11 @@ function pusher_integration_page_attachments(&$page) {
 	// Include Pusher
 	$appKey = \Drupal::config('pusher_integration.settings')->get('pusherAppKey');
 	$clusterName = \Drupal::config('pusher_integration.settings')->get('clusterName');
-	$createPrivateChannel = \Drupal::config('pusher_integration.settings')->get('createPrivateChannel');
-	$createPresenceChannel = \Drupal::config('pusher_integration.settings')->get('createPresenceChannel');
-	$presenceChannelName = \Drupal::config('pusher_integration.settings')->get('presenceChannelName');
-
-	// Create a name for the private channel for the current user, if it has been enabled
-	if ($createPrivateChannel) {
-		$account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-		$userName = $account->get('name')->value;
-		$userHash = md5( $account->get('created')->login );
-		$privateChannelName = 'private-' . $username . '-' . $userHash;
-	}
-	else
-		$privateChannelName = 'private-disabled';
 
 	$page['#attached']['library'][] = 'pusher_integration/pusherIntegration';
 	$page['#attached']['drupalSettings']['pusher']['pusherAppKey'] = $appKey;
 	$page['#attached']['drupalSettings']['pusher']['clusterName'] = $clusterName;
-	$page['#attached']['drupalSettings']['pusher']['createPrivateChannel'] = $createPrivateChannel;
-	$page['#attached']['drupalSettings']['pusher']['privateChannelName'] = $privateChannelName;
-	$page['#attached']['drupalSettings']['pusher']['createPresenceChannel'] = $createPresenceChannel;
-	$page['#attached']['drupalSettings']['pusher']['presenceChannelName'] = $presenceChannelName;
+	$page['#attached']['drupalSettings']['pusher']['userHash'] = $userHash;
 }
 
 function pusher_integration_page_attachments_alter(&$page)
@@ -57,9 +41,14 @@ function pusher_integration_page_attachments_alter(&$page)
 	// Channel routes (specific channels mapped to specific path patterns)
 	//$currentRoute = \Drupal::request()->get(Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_NAME);
 	$currentPath = \Drupal::request()->getRequestUri();
+	$pathHash = md5( $currentPath );
+	$page['#attached']['drupalSettings']['pusher']['pathHash'] = $pathHash;
+	$page['#attached']['drupalSettings']['pusher']['privateChannelName'] = 'private-' . $pathHash;
+
 
 	$tmp = preg_split('/\n/', $channelPaths);
 	$channelPaths = array_filter($tmp);
+
 
 	$matchedChannels = array();
 
@@ -69,6 +58,8 @@ function pusher_integration_page_attachments_alter(&$page)
 		list($channelName, $pattern) = preg_split('/\|/', $line);
 
 		$pattern = trim($pattern);
+		$channelName = trim($channelName);
+
 		$pattern = str_replace('/', '\/', $pattern);
 
 		if (preg_match('/' . $pattern . '/', $currentPath)) {
