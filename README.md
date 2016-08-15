@@ -115,8 +115,29 @@ class MyController extends ControllerBase {
 
 ## Client-side Javascript
 
-This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you on page loads:
+This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you on page loads. Additionally, it will create the following global Javascript variables that can be used to access various Pusher channels:
 
+*pusherChannels*
+  array of public channels the user is subscribed to. This is generally your default public channel, plus any default channels you've configured.
+  
+*privateChannel*
+  If you've configured the option to automatically create a private channel, this will be set to the channel object.
+
+*presenceChannel*
+  If you've configured the option to automatically create a presence channel, this will be set to the channel handle.
+  
+```javascript
+...
+  // Bind to the "my-event-name-here" event on the private channel, so we can listen for it to come across the wire!
+  privateChannel.bind('my-event-name-here', function(data) {
+	// Access your event information via the "data" object once the event is received by the client/browser
+	console.log( data );
+  });
+...
+```
+
+Here is an example of creating your own channel and subscribing to an event:
+  
 ```javascript
 var myChannel;
 
@@ -125,7 +146,7 @@ if (pusher)
   myChannel = pusher.subscribe('my-channel-name-here');
 
   // Bind to the "my-event-name-here" event, so we can listen for it to come across the wire!
-  pusher.bind('my-event-name-here', function(data) {
+  myChannel.bind('my-event-name-here', function(data) {
 	// Access your event information via the "data" object once the event is received by the client/browser
 	console.log( data );
   });
