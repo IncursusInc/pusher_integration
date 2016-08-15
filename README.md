@@ -117,6 +117,9 @@ class MyController extends ControllerBase {
 
 This module will create a global Javascript object simply called "pusher". You may use that to access the Pusher connection that is created automatically for you on page loads. Additionally, it will create the following global Javascript variables that can be used to access various Pusher channels:
 
+*pusher*
+  the global Pusher object
+
 *pusherChannels*
   array of public channels the user is subscribed to. This is generally your default public channel, plus any default channels you've configured.
   
