@@ -28,7 +28,6 @@ var privateChannel;
 			presenceChannel = pusher.subscribe(drupalSettings.pusher.presenceChannelName);
 
 		// Private Channel option, if configured
-		console.log(drupalSettings.pusher);
 		if(!drupalSettings.pusher.isUserAnonymous && drupalSettings.pusher.createPrivateChannel && drupalSettings.pusher.privateChannelName)
 			privateChannel = pusher.subscribe(drupalSettings.pusher.privateChannelName);
 	}
