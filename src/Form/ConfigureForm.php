@@ -95,7 +95,8 @@ class ConfigureForm extends ConfigFormBase {
     			'#title' => t('Channel Routes'),
     			'#required' => FALSE,
 					'#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
-    			'#description' => t('Matches channels to specific routes (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line.')
+    			'#description' => t('Matches channels to specific routes (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line.'),
+    			'#placeholder' => t("e.g.\ntest-channel|/about/us")
 				);
 
 				$form['pusher']['createPresenceChannel'] = array(
