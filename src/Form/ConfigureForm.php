@@ -128,7 +128,7 @@ class ConfigureForm extends ConfigFormBase
 
         $form['pusher']['debugLogging'] = array(
           '#type' => 'checkbox',
-          '#title' => t('Enable debug logging to the page'),
+          '#title' => t('Enable debug logging to Drupal Watchdog'),
           '#required' => false,
           '#default_value' => $config->get('debugLogging'),
           '#description' => t('It goes without saying that this should not be enabled in production environments! But if you need a quick and dirty debug log to watchdog, enable this.')
