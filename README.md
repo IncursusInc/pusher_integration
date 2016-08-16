@@ -198,3 +198,11 @@ if (pusher)
 
 }
 ```
+
+If you have the need, you can also trigger/broadcast events straight from your app via Javascript as well:
+
+```javascript
+var triggered = publicChannel.trigger('some-event-name', { your: data });
+```
+
+In order for this to work, be sure to enable client events inside your app settings at Pusher.com.
