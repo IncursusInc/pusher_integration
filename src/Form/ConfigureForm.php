@@ -44,6 +44,7 @@ class ConfigureForm extends ConfigFormBase
         $form['pusher'] = array(
           '#type' => 'fieldset',
           '#title' => t('Pusher.com Connection Settings'),
+          '#markup' => t('Provide the Pusher.com settings for your particular Pusher.com account/app.'),
         );
 
         $form['pusher']['pusherAppId'] = array(
@@ -89,6 +90,7 @@ class ConfigureForm extends ConfigFormBase
         $form['channelConfig'] = array(
           '#type' => 'fieldset',
           '#title' => t('Channel Configuration'),
+          '#markup' => t('Create the mapping of Pusher.com channels to your pages. When in doubt, consult the documentation for the module(s) that depend on pusher_integration.'),
         );
 
         $form['channelConfig']['channelPaths'] = array(

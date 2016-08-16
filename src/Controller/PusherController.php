@@ -21,7 +21,6 @@ use Drupal\pusher_integration\Controller\PusherDebugLogController;
 
 class PusherController extends ControllerBase
 {
-
     protected $configFactory;
     protected $currentUser;
     protected $pusher;

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains pusher.module
+ * Contains pusher_integration.module
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -12,7 +12,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 
 function pusher_integration_page_attachments(&$page) {
-	// Include Pusher
+
+	// Attach Pusher connection information to the page
 	$appKey = \Drupal::config('pusher_integration.settings')->get('pusherAppKey');
 	$clusterName = \Drupal::config('pusher_integration.settings')->get('clusterName');
 
@@ -20,11 +21,12 @@ function pusher_integration_page_attachments(&$page) {
 	$page['#attached']['drupalSettings']['pusher']['pusherAppKey'] = $appKey;
 	$page['#attached']['drupalSettings']['pusher']['clusterName'] = $clusterName;
 	$page['#attached']['drupalSettings']['pusher']['userHash'] = $userHash;
+
 }
 
-function pusher_integration_page_attachments_alter(&$page)
-{
-	// Disable caching of this stuff, otherwise, all sorts of issues occur
+function pusher_integration_page_attachments_alter(&$page) {
+
+	// Disable caching of this stuff
 	$page['#cache'] = ['max-age' => 0];
 
 	$isUserAnonymous = \Drupal::currentUser()->isAnonymous();
