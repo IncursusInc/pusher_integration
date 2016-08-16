@@ -7,9 +7,14 @@ var privateChannel;
 
     "use strict";
 
-    // TODO - check to make sure we have ALL the fields needed to connect, not just the key! lol
-
     var s = drupalSettings.pusher;
+
+    // Set up debug logging to the console (if enabled in the admin panel)
+    if (s.debugLogging) {
+        Pusher.log = function(message) {
+            if (window.console && window.console.log) window.console.log(message);
+        };
+    }
 
     if (s.pusherAppKey) {
 

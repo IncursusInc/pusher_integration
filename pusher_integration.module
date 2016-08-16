@@ -29,6 +29,9 @@ function pusher_integration_page_attachments_alter(&$page) {
 	// Disable caching of this stuff
 	$page['#cache'] = ['max-age' => 0];
 
+	$debugLogging = \Drupal::config('pusher_integration.settings')->get('debugLogging');
+	$page['#attached']['drupalSettings']['pusher']['debugLogging'] = $debugLogging;
+
 	$isUserAnonymous = \Drupal::currentUser()->isAnonymous();
 	$defaultChannels = \Drupal::config('pusher_integration.settings')->get('defaultChannels');
 	$channelPaths = \Drupal::config('pusher_integration.settings')->get('channelPaths');
