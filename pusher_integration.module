@@ -20,7 +20,7 @@ function pusher_integration_page_attachments(&$page) {
 	$page['#attached']['library'][] = 'pusher_integration/pusherIntegration';
 	$page['#attached']['drupalSettings']['pusher']['pusherAppKey'] = $appKey;
 	$page['#attached']['drupalSettings']['pusher']['clusterName'] = $clusterName;
-	$page['#attached']['drupalSettings']['pusher']['userHash'] = $userHash;
+	//$page['#attached']['drupalSettings']['pusher']['userHash'] = $userHash;
 
 }
 
