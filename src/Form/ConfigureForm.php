@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\pusher\Form\ConfigureForm.
- */
 
 namespace Drupal\pusher_integration\Form;
 
@@ -12,130 +8,129 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Configure form.
  */
-class ConfigureForm extends ConfigFormBase
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormId() 
-    {
-        return 'pusher_configure_form';
-    }
+class ConfigureForm extends ConfigFormBase {
 
-    /** 
-     * {@inheritdoc}
-     */
-    protected function getEditableConfigNames() 
-    {
-        return [
-          'pusher_integration.settings',
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(array $form, FormStateInterface $form_state) 
-    {
+    return 'pusher_configure_form';
+  }
 
-        $config = $this->config('pusher_integration.settings');
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
 
-        // Pusher.com Connection Settings
-        $form['pusher'] = array(
-          '#type' => 'fieldset',
-          '#title' => t('Pusher.com Connection Settings'),
-          '#markup' => t('Provide the Pusher.com settings for your particular Pusher.com account/app.'),
-        );
+    return [
+      'pusher_integration.settings',
+    ];
+  }
 
-        $form['pusher']['pusherAppId'] = array(
-          '#type' => 'textfield',
-          '#title' => t('Pusher App ID'),
-          '#required' => false,
-          '#default_value' => $config->get('pusherAppId') ? $config->get('pusherAppId') : '',
-          '#description' => t('The Pusher App ID you created at Pusher.com.')
-        );
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
-        $form['pusher']['pusherAppKey'] = array(
-          '#type' => 'textfield',
-          '#title' => t('Pusher App Key'),
-          '#required' => false,
-          '#default_value' => $config->get('pusherAppKey') ? $config->get('pusherAppKey') : '',
-          '#description' => t('The Pusher App Key you created at Pusher.com.')
-        );
+    $config = $this->config('pusher_integration.settings');
 
-        $form['pusher']['pusherAppSecret'] = array(
-          '#type' => 'textfield',
-          '#title' => t('Pusher App Secret'),
-          '#required' => false,
-          '#default_value' => $config->get('pusherAppSecret') ? $config->get('pusherAppSecret') : '',
-          '#description' => t('The Pusher App Secret you created at Pusher.com.')
-        );
+    // Pusher.com Connection Settings.
+    $form['pusher'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Pusher.com Connection Settings'),
+      '#markup' => t('Provide the Pusher.com settings for your particular Pusher.com account/app.'),
+    );
 
-        $clusters = array(
-          'mt1' => 'United States (us-east-1)',
-          'eu1' => 'Europe (eu-west-1)',
-          'ap1' => 'Asia (asia-southeast-1)'
-        );
+    $form['pusher']['pusherAppId'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Pusher App ID'),
+      '#required' => FALSE,
+      '#default_value' => $config->get('pusherAppId') ? $config->get('pusherAppId') : '',
+      '#description' => t('The Pusher App ID you created at Pusher.com.'),
+    );
 
-        $form['pusher']['clusterName'] = array(
-          '#type' => 'select',
-          '#options' => $clusters,
-          '#title' => t('Pusher.com Cluster Name'),
-          '#required' => false,
-          '#default_value' => $config->get('clusterName') ? $config->get('clusterName') : '',
-          '#description' => t('The Pusher.com cluster to connect with.')
-        );
+    $form['pusher']['pusherAppKey'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Pusher App Key'),
+      '#required' => FALSE,
+      '#default_value' => $config->get('pusherAppKey') ? $config->get('pusherAppKey') : '',
+      '#description' => t('The Pusher App Key you created at Pusher.com.'),
+    );
 
-        // Channel Configuration
-        $form['channelConfig'] = array(
-          '#type' => 'fieldset',
-          '#title' => t('Channel Configuration'),
-          '#markup' => t('Create the mapping of Pusher.com channels to your pages. When in doubt, consult the documentation for the module(s) that depend on pusher_integration.'),
-        );
+    $form['pusher']['pusherAppSecret'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Pusher App Secret'),
+      '#required' => FALSE,
+      '#default_value' => $config->get('pusherAppSecret') ? $config->get('pusherAppSecret') : '',
+      '#description' => t('The Pusher App Secret you created at Pusher.com.'),
+    );
 
-        $form['channelConfig']['channelPaths'] = array(
-          '#type' => 'textarea',
-          '#title' => t('Channel/Page Mapping'),
-          '#required' => false,
-          '#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
-          '#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported. %TOKEN% can be used to create a unique hash for (for creating private channels).'),
-          '#placeholder' => t("e.g.\nglobal-channel|.*\ntest-channel|/some/path/*\nspecialChannel|partialPathsWorkToo\nprivate-%TOKEN%|/some/path/.*")
-        );
+    $clusters = array(
+      'mt1' => 'United States (us-east-1)',
+      'eu1' => 'Europe (eu-west-1)',
+      'ap1' => 'Asia (asia-southeast-1)',
+    );
 
-        // Channel Configuration
-        $form['misc'] = array(
-          '#type' => 'fieldset',
-          '#title' => t('Miscellaneous Settings'),
-        );
+    $form['pusher']['clusterName'] = array(
+      '#type' => 'select',
+      '#options' => $clusters,
+      '#title' => t('Pusher.com Cluster Name'),
+      '#required' => FALSE,
+      '#default_value' => $config->get('clusterName') ? $config->get('clusterName') : '',
+      '#description' => t('The Pusher.com cluster to connect with.'),
+    );
 
-        $form['misc']['debugLogging'] = array(
-          '#type' => 'checkbox',
-          '#title' => t('Enable debug logging to Drupal Watchdog'),
-          '#required' => false,
-          '#default_value' => $config->get('debugLogging'),
-          '#description' => t('It goes without saying that this should not be enabled in production environments! But if you need a quick and dirty debug log to watchdog, enable this.')
-        );
+    // Channel Configuration.
+    $form['channelConfig'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Channel Configuration'),
+      '#markup' => t('Create the mapping of Pusher.com channels to your pages. When in doubt, consult the documentation for the module(s) that depend on pusher_integration.'),
+    );
 
-        return parent::buildForm($form, $form_state);
-    }
+    $form['channelConfig']['channelPaths'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Channel/Page Mapping'),
+      '#required' => FALSE,
+      '#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
+      '#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported. %TOKEN% can be used to create a unique hash for (for creating private channels).'),
+      '#placeholder' => t("e.g.\nglobal-channel|.*\ntest-channel|/some/path/*\nspecialChannel|partialPathsWorkToo\nprivate-%TOKEN%|/some/path/.*"),
+    );
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validateForm(array &$form, FormStateInterface $form_state) 
-    {
-        parent::validateForm($form, $form_state);
-    }
+    // Channel Configuration.
+    $form['misc'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Miscellaneous Settings'),
+    );
 
-    /**
-     * {@inheritdoc}
-     */
-    public function submitForm(array &$form, FormStateInterface $form_state) 
-    {
-        $config = $this->config('pusher_integration.settings');
+    $form['misc']['debugLogging'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable debug logging to Drupal Watchdog'),
+      '#required' => FALSE,
+      '#default_value' => $config->get('debugLogging'),
+      '#description' => t('It goes without saying that this should not be enabled in production environments! But if you need a quick and dirty debug log to watchdog, enable this.'),
+    );
 
-        // General settings
-        $config->set('pusherAppId', $form_state->getValue('pusherAppId'))
+    return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    $config = $this->config('pusher_integration.settings');
+
+    // General settings.
+    $config->set('pusherAppId', $form_state->getValue('pusherAppId'))
             ->set('pusherAppKey', $form_state->getValue('pusherAppKey'))
             ->set('pusherAppSecret', $form_state->getValue('pusherAppSecret'))
             ->set('clusterName', $form_state->getValue('clusterName'))
@@ -147,7 +142,7 @@ class ConfigureForm extends ConfigFormBase
             ->set('debugLogging', $form_state->getValue('debugLogging'))
             ->save();
 
+    parent::submitForm($form, $form_state);
+  }
 
-        parent::submitForm($form, $form_state);
-    }
 }
