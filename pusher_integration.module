@@ -6,7 +6,7 @@
  */
 
 use Drupal\pusher_integration\Entity\ChannelPathMap;
-
+use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Loader for ChannelPathMap entity.
  *
@@ -19,6 +19,20 @@ function channel_path_map_load($id) {
   return ChannelPathMap::load($id);
 }
 
+/**
+ * Implements hook_help().
+ */
+function pusher_integration_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+
+  switch ($route_name) {
+    case 'channel_path_map.list':
+      $output .= '<p>' . t('The channel-path-map associates Pusher channels to your site paths. Regex is supported in the path patterns!') . '</p>';
+      break;
+  }
+
+  return $output;
+}
 
 /**
  * Page_attachments hook.

@@ -26,6 +26,9 @@ use Drupal\pusher_integration\ChannelPathMapInterface;
  *   },
  *   config_prefix = "channel_path_map",
  *   admin_permission = "administer site configuration",
+ *   list_cache_tags = {
+ *    "rendered"
+ *   },
  *   entity_keys = {
  *     "id" = "mapId",
  *   },
