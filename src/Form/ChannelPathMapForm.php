@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\pusher_integration\Form\ChannelPathMapForm.
- */
-
 namespace Drupal\pusher_integration\Form;
 
-use Drupal\pusher_integration\Entity\ChannelPathMap;
 use Drupal\Core\Entity\EntityForm;
-//use Drupal\pusher_integration\CaptchaPointInterface;
+// Use Drupal\pusher_integration\CaptchaPointInterface;.
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -68,14 +62,13 @@ class ChannelPathMapForm extends EntityForm {
     ];
 
     // Select widget for CAPTCHA type.
-    //$form['captchaType'] = [
-      //'#type' => 'select',
-      //'#title' => t('Challenge type'),
-      //'#description' => t('The CAPTCHA type to use for this form.'),
-      //'#default_value' => ($mapEntry->getCaptchaType() ?: $this->config('captcha.settings')->get('default_challenge')),
-      //'#options' => _captcha_available_challenge_types(),
-    //];
-
+    // $form['captchaType'] = [
+    // '#type' => 'select',
+    // '#title' => t('Challenge type'),
+    // '#description' => t('The CAPTCHA type to use for this form.'),
+    // '#default_value' => ($mapEntry->getCaptchaType() ?: $this->config('captcha.settings')->get('default_challenge')),
+    // '#options' => _captcha_available_challenge_types(),
+    // ];
     return $form;
   }
 
@@ -85,13 +78,12 @@ class ChannelPathMapForm extends EntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     /* @var ChannelPathMap $mapEntry */
     $mapEntry = $this->entity;
-//echo '<pre>'; print_r($mapEntry); echo '</pre>';
-
+    // Echo '<pre>'; print_r($mapEntry); echo '</pre>';.
     $status = $mapEntry->save();
 
-//$e = \Drupal::entityTypeManager()->getStorage('channel_path_map')->loadMultiple();
-//echo '<pre>'; print_r($e); echo '</pre>';
-//exit;
+    // $e = \Drupal::entityTypeManager()->getStorage('channel_path_map')->loadMultiple();
+    // echo '<pre>'; print_r($e); echo '</pre>';
+    // exit;.
     if ($status == SAVED_NEW) {
       drupal_set_message($this->t('Channel-Path-Map for %mapId form was created.', [
         '%mapId' => $mapEntry->getMapId(),

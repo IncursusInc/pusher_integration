@@ -1,10 +1,11 @@
 <?php
+
+namespace Drupal\pusher_integration\Form;
+
 /**
  * @file
  * Contains \Drupal\pusher_integration\Form\ChannelPathMapDeleteForm.
  */
-
-namespace Drupal\pusher_integration\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;

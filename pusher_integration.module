@@ -32,7 +32,6 @@ function pusher_integration_page_attachments(&$page) {
   $page['#attached']['library'][] = 'pusher_integration/pusherIntegration';
   $page['#attached']['drupalSettings']['pusher']['pusherAppKey'] = $appKey;
   $page['#attached']['drupalSettings']['pusher']['clusterName'] = $clusterName;
-  // $page['#attached']['drupalSettings']['pusher']['userHash'] = $userHash;.
 }
 
 /**
@@ -47,18 +46,9 @@ function pusher_integration_page_attachments_alter(&$page) {
   $page['#attached']['drupalSettings']['pusher']['debugLogging'] = $debugLogging;
 
   $isUserAnonymous = \Drupal::currentUser()->isAnonymous();
-  //$defaultChannels = \Drupal::config('pusher_integration.settings')->get('defaultChannels');
-  //$channelPaths = \Drupal::config('pusher_integration.settings')->get('channelPaths');
 
   $page['#attached']['drupalSettings']['pusher']['isUserAnonymous'] = $isUserAnonymous;
 
-  // Default Channels (everyone gets these if set)
-  //$tmp = preg_split('/\n/', $defaultChannels);
-  //$defaultChannels = array_filter($tmp);
-  //$page['#attached']['drupalSettings']['pusher']['defaultChannels'] = $defaultChannels;
-
-  // Channel routes (specific channels mapped to specific path patterns)
-  // $currentRoute = \Drupal::request()->get(Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_NAME);
   $currentPath = \Drupal::request()->getRequestUri();
   $pathHash = md5($currentPath);
   $page['#attached']['drupalSettings']['pusher']['pathHash'] = $pathHash;
@@ -75,8 +65,6 @@ function pusher_integration_page_attachments_alter(&$page) {
   $channelPaths = \Drupal::entityManager()->getStorage('channel_path_map')->loadMultiple();
 
   foreach ($channelPaths as $entry) {
-
-    //list($channelName, $pattern) = preg_split('/\|/', $line);
 
     $pattern = trim($entry->getPathPattern());
     $channelName = trim($entry->getChannelName());

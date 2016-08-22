@@ -1,14 +1,13 @@
 <?php
 
+namespace Drupal\pusher_integration\Entity;
+
 /**
  * @file
  * Contains \Drupal\pusher_integration\Entity\ChannelPathMap.
  */
 
-namespace Drupal\pusher_integration\Entity;
-
 use Drupal\Core\Config\Entity\ConfigEntityBase;
-use Drupal\Core\Cache\Cache;
 use Drupal\pusher_integration\ChannelPathMapInterface;
 
 /**

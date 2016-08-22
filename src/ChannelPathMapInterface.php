@@ -1,11 +1,11 @@
 <?php
 
+namespace Drupal\pusher_integration;
+
 /**
  * @file
  * Contains \Drupal\captcha\ChannelPathMapInterface.
  */
-
-namespace Drupal\pusher_integration;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
@@ -27,7 +27,7 @@ interface ChannelPathMapInterface extends ConfigEntityInterface {
    * Setter for channelName property.
    *
    * @param string $channelName
-   *   Form machine ID string.
+   *   Map entry machine ID string.
    */
   public function setChannelName($channelName);
 

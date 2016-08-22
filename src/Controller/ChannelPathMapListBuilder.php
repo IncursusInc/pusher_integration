@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\pusher_integration\Controller\ChannelPathMapListBuilder.
- */
-
 namespace Drupal\pusher_integration\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
@@ -14,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Builds the list of associations for the channel path map form.
  */
 class ChannelPathMapListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */
@@ -32,17 +28,10 @@ class ChannelPathMapListBuilder extends ConfigEntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     $row['mapId'] = $entity->id();
 
-
-
     $row['channelName'] = $entity->getChannelName();
     $row['pathPattern'] = $entity->getPathPattern();
-
-
-
-
 
     return $row + parent::buildRow($entity);
   }
 
 }
-
