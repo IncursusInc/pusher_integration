@@ -175,8 +175,8 @@ This module will create a global Javascript object simply called "pusher". You m
 ...
   // Bind to the "my-event-name-here" event on the private channel, so we can listen for it to come across the wire!
   privateChannel.bind('my-event-name-here', function(data) {
-	// Access your event information via the "data" object once the event is received by the client/browser
-	console.log( data );
+	  // Access your event information via the "data" object once the event is received by the client/browser
+	  console.log( data );
   });
 ...
 ```
@@ -192,8 +192,8 @@ if (pusher)
 
   // Bind to the "my-event-name-here" event, so we can listen for it to come across the wire!
   myChannel.bind('my-event-name-here', function(data) {
-	// Access your event information via the "data" object once the event is received by the client/browser
-	console.log( data );
+	  // Access your event information via the "data" object once the event is received by the client/browser
+	  console.log( data );
   });
 
 }
