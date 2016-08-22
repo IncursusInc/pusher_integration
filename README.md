@@ -27,39 +27,26 @@ The configuration options can be accessed via the normal admin configuration men
 
 This is pretty straightforward. Just plug in the configuration values that Pusher.com gives you for your app.
 
+## Miscellaneous Settings
+
+Currently, there is only one option in this section, and it will allow you to enable debug logging to the Drupal Watchdog logger. Note: this is not recommended for production!
+
 ## Channel Configuration
 
-This section requires a bit more explanation. In essence, this textarea field allows you to configure channels for specific paths on your site. Since the paths support regex,
-you can quickly and easily create global channels that affect your whole site, or just certain sections of your site.
+This section requires a bit more explanation. To use Pusher services, you must create a mapping between Pusher channels and your pages/paths. In essence, you configure channels for specific paths on your site. Click the "Channel-Path-Map" tab to access the mapping page. To add a new entry, simply provide a Pusher channel name and a "path pattern". Since the path patterns support regex, you can quickly and easily create global channels that affect your whole site, or just certain sections of your site.
 
-The format for each line is:
-
-    CHANNEL_NAME|PATH_PATTERN
-
-Where CHANNEL_NAME can be:
+CHANNEL_NAME can be:
 
     presence-SOMESTRING: to create a presence channel
     private-SOMESTRING: to create a private channel
     SOMESTRING: Without "presence-" or "private-" in it, to create a public channel
 
 For example, our [SiteCommander module](https://github.com/IncursusInc/sitecommander) supports Pusher for message broadcasting. It requires a public channel simply called "site-commander"
-to be setup for all pages on the site.  So that entry would look like:
+to be setup for all pages on the site. Simply use "site-commander" (no quotes) for the channel name, and a path pattern of ".*" (again, no quotes), and you're all set!
 
-```
-site-commander:.*
-```
-
-As another example, let's say you wanted to create a private channel, but only on a page at "/super/secret/path". That entry would look like:
-
-```
-private-my-secret-channel|/super/secret/path
-```
+As another example, let's say you wanted to create a private channel, but only on a page at "/super/secret/path". You would simply use "private-my-secret-channel" (or whatever you want to call it) for the channel name, and "/super/secret/path" for the path pattern.
 
 You get the idea.
-
-## Miscellaneous Settings
-
-Currently, there is only one option in this section, and it will allow you to enable debug logging to the Drupal Watchdog logger. Note: this is not recommended for production!
 
 # Usage Information for Developers
 
