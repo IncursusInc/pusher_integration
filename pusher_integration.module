@@ -5,6 +5,21 @@
  * Contains pusher_integration.module.
  */
 
+use Drupal\pusher_integration\Entity\ChannelPathMap;
+
+/**
+ * Loader for ChannelPathMap entity.
+ *
+ * @param string $id
+ *   Map id string.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface
+ */
+function channel_path_map_load($id) {
+  return ChannelPathMap::load($id);
+}
+
+
 /**
  * Page_attachments hook.
  */
@@ -32,15 +47,15 @@ function pusher_integration_page_attachments_alter(&$page) {
   $page['#attached']['drupalSettings']['pusher']['debugLogging'] = $debugLogging;
 
   $isUserAnonymous = \Drupal::currentUser()->isAnonymous();
-  $defaultChannels = \Drupal::config('pusher_integration.settings')->get('defaultChannels');
-  $channelPaths = \Drupal::config('pusher_integration.settings')->get('channelPaths');
+  //$defaultChannels = \Drupal::config('pusher_integration.settings')->get('defaultChannels');
+  //$channelPaths = \Drupal::config('pusher_integration.settings')->get('channelPaths');
 
   $page['#attached']['drupalSettings']['pusher']['isUserAnonymous'] = $isUserAnonymous;
 
   // Default Channels (everyone gets these if set)
-  $tmp = preg_split('/\n/', $defaultChannels);
-  $defaultChannels = array_filter($tmp);
-  $page['#attached']['drupalSettings']['pusher']['defaultChannels'] = $defaultChannels;
+  //$tmp = preg_split('/\n/', $defaultChannels);
+  //$defaultChannels = array_filter($tmp);
+  //$page['#attached']['drupalSettings']['pusher']['defaultChannels'] = $defaultChannels;
 
   // Channel routes (specific channels mapped to specific path patterns)
   // $currentRoute = \Drupal::request()->get(Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_NAME);
@@ -55,12 +70,16 @@ function pusher_integration_page_attachments_alter(&$page) {
   $matchedChannels = array();
 
   // See if any configure channel paths match the current route, if so, add the channel to the list we need to connect to.
-  foreach ($channelPaths as $line) {
 
-    list($channelName, $pattern) = preg_split('/\|/', $line);
+  // Load up all of the channel-path-map entries they've configured
+  $channelPaths = \Drupal::entityManager()->getStorage('channel_path_map')->loadMultiple();
 
-    $pattern = trim($pattern);
-    $channelName = trim($channelName);
+  foreach ($channelPaths as $entry) {
+
+    //list($channelName, $pattern) = preg_split('/\|/', $line);
+
+    $pattern = trim($entry->getPathPattern());
+    $channelName = trim($entry->getChannelName());
 
     $pattern = str_replace('/', '\/', $pattern);
 

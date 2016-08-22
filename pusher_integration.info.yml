@@ -2,5 +2,5 @@ name: Pusher Integration
 type: module
 description: Pusher.com API Support Module
 package: Pusher Integration
-configure: pusher_integration_configure
+configure: pusher_integration_settings
 core: 8.x

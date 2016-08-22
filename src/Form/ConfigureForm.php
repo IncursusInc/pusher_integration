@@ -82,20 +82,20 @@ class ConfigureForm extends ConfigFormBase {
     );
 
     // Channel Configuration.
-    $form['channelConfig'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Channel Configuration'),
-      '#markup' => t('Create the mapping of Pusher.com channels to your pages. When in doubt, consult the documentation for the module(s) that depend on pusher_integration.'),
-    );
+    //$form['channelConfig'] = array(
+      //'#type' => 'fieldset',
+      //'#title' => t('Channel Configuration'),
+      //'#markup' => t('Create the mapping of Pusher.com channels to your pages. When in doubt, consult the documentation for the module(s) that depend on pusher_integration.'),
+    //);
 
-    $form['channelConfig']['channelPaths'] = array(
-      '#type' => 'textarea',
-      '#title' => t('Channel/Page Mapping'),
-      '#required' => FALSE,
-      '#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
-      '#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported. %TOKEN% can be used to create a unique hash for (for creating private channels).'),
-      '#placeholder' => t("e.g.\nglobal-channel|.*\ntest-channel|/some/path/*\nspecialChannel|partialPathsWorkToo\nprivate-%TOKEN%|/some/path/.*"),
-    );
+    //$form['channelConfig']['channelPaths'] = array(
+      //'#type' => 'textarea',
+      //'#title' => t('Channel/Page Mapping'),
+      //'#required' => FALSE,
+      //'#default_value' => $config->get('channelPaths') ? $config->get('channelPaths') : '',
+      //'#description' => t('Matches channels to specific pages (leave blank for all pages). CHANNEL_NAME|ROUTEPATTERN - One entry per line. Regex supported. %TOKEN% can be used to create a unique hash for (for creating private channels).'),
+      //'#placeholder' => t("e.g.\nglobal-channel|.*\ntest-channel|/some/path/*\nspecialChannel|partialPathsWorkToo\nprivate-%TOKEN%|/some/path/.*"),
+    //);
 
     // Channel Configuration.
     $form['misc'] = array(
@@ -134,8 +134,8 @@ class ConfigureForm extends ConfigFormBase {
             ->set('pusherAppKey', $form_state->getValue('pusherAppKey'))
             ->set('pusherAppSecret', $form_state->getValue('pusherAppSecret'))
             ->set('clusterName', $form_state->getValue('clusterName'))
-            ->set('defaultChannels', $form_state->getValue('defaultChannels'))
-            ->set('channelPaths', $form_state->getValue('channelPaths'))
+            //->set('defaultChannels', $form_state->getValue('defaultChannels'))
+            //->set('channelPaths', $form_state->getValue('channelPaths'))
             ->set('createPrivateChannel', $form_state->getValue('createPrivateChannel'))
             ->set('createPresenceChannel', $form_state->getValue('createPresenceChannel'))
             ->set('presenceChannelName', $form_state->getValue('presenceChannelName'))
