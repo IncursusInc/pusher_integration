@@ -1,5 +1,5 @@
 # Pusher Integration
-Pusher Integration is a Drupal 8 module designed to provide a robust interface for integrating Pusher.com services into Drupal modules and apps. By itself, it doesn't do anything, but rather is a tool for Drupal developers to incorporate realtime message broadcasting into their modules and applications.
+Pusher Integration is a Drupal 8 module designed to provide a robust interface for integrating Pusher.com services into Drupal modules and apps. By itself, it doesn't do anything, but rather is a tool for Drupal developers to incorporate realtime message broadcasting into their modules and applications. There are/were some similar modules for Drupal 7, but as of now, they have not yet been ported for Drupal 8, which is why we wrote this one!
 
 # Requirements
 
