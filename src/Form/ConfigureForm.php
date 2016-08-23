@@ -78,7 +78,7 @@ class ConfigureForm extends ConfigFormBase {
       '#title' => t('Pusher.com Cluster Name'),
       '#required' => FALSE,
       '#default_value' => $config->get('clusterName') ? $config->get('clusterName') : '',
-      '#description' => t('The Pusher.com cluster to connect with.'),
+      '#description' => t('The Pusher.com cluster with which to connect. Note: this *must* match the cluster you chose when creating your app at Pusher.com!'),
     );
 
     // Channel Configuration.
