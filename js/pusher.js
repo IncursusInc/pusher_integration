@@ -46,4 +46,3 @@ var privateChannel;
     }
 
 })(jQuery, Drupal);
-

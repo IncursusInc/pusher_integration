@@ -17,7 +17,7 @@ Pusher Integration is a Drupal 8 module designed to provide a robust interface f
 1. Download and install the module (./modules/custom/push_integration)
 2. Run an update with Drush to pull in dependencies: "drush up" (Be sure to have the Composer Manager module installed!)
 3. Configure the module (admin/config/pusher_integration)
-4. Install whatever other module needs it and go from there (e.g. [SiteCommander](https://github.com/IncursusInc/sitecommander))
+4. Install whatever other module needs it and go from there
 
 # Configuration
 
@@ -41,7 +41,7 @@ CHANNEL_NAME can be:
     private-SOMESTRING: to create a private channel
     SOMESTRING: Without "presence-" or "private-" in it, to create a public channel
 
-For example, our [SiteCommander module](https://github.com/IncursusInc/sitecommander) supports Pusher for message broadcasting. It requires a public channel simply called "site-commander"
+For example, our SiteCommander module, which will be published soon, supports Pusher for message broadcasting. It requires a public channel simply called "site-commander"
 to be setup for all pages on the site. Simply use "site-commander" (no quotes) for the channel name, and a path pattern of ".*" (again, no quotes), and you're all set!
 
 As another example, let's say you wanted to create a private channel, but only on a page at "/super/secret/path". You would simply use "private-my-secret-channel" (or whatever you want to call it) for the channel name, and "/super/secret/path" for the path pattern.
@@ -84,11 +84,6 @@ Here is a more pseudo-complete example, with dependency injection:
 
 ```php
 <?php
-
-/**
- * @file
- * Contains \Drupal\sitecommander\Controller\SiteCommanderController.
- */
 
 namespace Drupal\my_module\Controller;
 

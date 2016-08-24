@@ -7,6 +7,7 @@
 
 use Drupal\pusher_integration\Entity\ChannelPathMap;
 use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Loader for ChannelPathMap entity.
  *
@@ -74,8 +75,7 @@ function pusher_integration_page_attachments_alter(&$page) {
   $matchedChannels = array();
 
   // See if any configure channel paths match the current route, if so, add the channel to the list we need to connect to.
-
-  // Load up all of the channel-path-map entries they've configured
+  // Load up all of the channel-path-map entries they've configured.
   $channelPaths = \Drupal::entityManager()->getStorage('channel_path_map')->loadMultiple();
 
   foreach ($channelPaths as $entry) {
