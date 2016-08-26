@@ -4,8 +4,8 @@
 
 var pusher;
 var pusherChannels = [];
-var presenceChannel;
-var privateChannel;
+var presenceChannels = [];
+var privateChannels = [];
 
 (function ($, Drupal) {
 
@@ -33,10 +33,10 @@ var privateChannel;
             $.each(
                 s.matchedChannels, function (key, channelName) {
                     if (channelName.includes('presence-')) {
-                        presenceChannel = pusher.subscribe(channelName);
+                        presenceChannel[ channelName ] = pusher.subscribe(channelName);
                     }
                     else if (channelName.includes('private-')) {
-                        privateChannel = pusher.subscribe(s.privateChannelName); }
+                        privateChannels[ channelName ] = pusher.subscribe(s.privateChannelName); }
                     else {
                         pusherChannels[ channelName ] = pusher.subscribe(channelName); }
                 }
