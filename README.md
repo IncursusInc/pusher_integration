@@ -147,18 +147,18 @@ This module will create a global Javascript object simply called "pusher". You m
   the global Pusher object
 
 *pusherChannels*
-  array of public channels the user is subscribed to. This is generally your default public channel, plus any default channels you've configured.
+  array of public channels the user is subscribed to.
   
 *privateChannel*
-  If you've configured the option to automatically create a private channel, this will be set to the channel object.
+  array of private channels the user is subscribed to.
 
 *presenceChannel*
-  If you've configured the option to automatically create a presence channel, this will be set to the channel object.
+  array of presence channels the user is subscribed to.
   
 ```javascript
 ...
   // Bind to the "my-event-name-here" event on the private channel, so we can listen for it to come across the wire!
-  privateChannel.bind('my-event-name-here', function(data) {
+  privateChannels[index].bind('my-event-name-here', function(data) {
 	  // Access your event information via the "data" object once the event is received by the client/browser
 	  console.log( data );
   });

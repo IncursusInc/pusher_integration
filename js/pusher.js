@@ -33,7 +33,7 @@ var privateChannels = [];
             $.each(
                 s.matchedChannels, function (key, channelName) {
                     if (channelName.includes('presence-')) {
-                        presenceChannel[ channelName ] = pusher.subscribe(channelName);
+                        presenceChannels[ channelName ] = pusher.subscribe(channelName);
                     }
                     else if (channelName.includes('private-')) {
                         privateChannels[ channelName ] = pusher.subscribe(s.privateChannelName); }
